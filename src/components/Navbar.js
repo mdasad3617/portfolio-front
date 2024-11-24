@@ -1,42 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 
-function Navbar() {
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navItems = [
+    { href: "#header", label: "Welcome" },
+    { href: "#about", label: "About" },
+    { href: "#experience", label: "Experience" },
+    { href: "#projects", label: "Projects" },
+    { href: "#skills", label: "Skills" },
+    { href: "#contact", label: "Contact" }
+  ];
+
   return (
-    <nav style={{
-      position: 'fixed',
-      top: 0,
-      width: '100%',
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      padding: '10px 0',
-      zIndex: 1000,
-    }}>
-      <ul style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '20px',
-        listStyle: 'none',
-        margin: 0,
-        padding: 0,
-      }}>
-        <li><a href="#header" style={navLinkStyle}>Welcome</a></li>
-        <li><a href="#about" style={navLinkStyle}>About</a></li>
-        <li><a href="#experience" style={navLinkStyle}>Experience</a></li>
-        <li><a href="#projects" style={navLinkStyle}>Projects</a></li>
-        <li><a href="#skills" style={navLinkStyle}>Skills</a></li>
-        <li><a href="#contact" style={navLinkStyle}>Contact</a></li>
-      </ul>
+    <nav className="fixed top-0 w-full bg-black/80 py-4 backdrop-blur-sm z-50">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="flex justify-between items-center">
+          {/* Desktop Navigation */}
+          <ul className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  className="text-rose-400 hover:text-rose-300 font-bold text-lg px-3 py-2 rounded-md 
+                            transition-colors duration-300 hover:bg-white/10"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden text-rose-400 hover:text-rose-300 p-2"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <div className="md:hidden">
+            <ul className="flex flex-col items-center gap-4 pt-4">
+              {navItems.map((item) => (
+                <li key={item.href} className="w-full">
+                  <a
+                    href={item.href}
+                    className="block text-rose-400 hover:text-rose-300 font-bold text-lg px-3 py-2 
+                              rounded-md transition-colors duration-300 hover:bg-white/10 text-center"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </nav>
   );
-}
-
-const navLinkStyle = {
-  color: '#ff6f61',
-  textDecoration: 'none',
-  fontSize: '1.2rem',
-  fontWeight: 'bold',
-  padding: '5px 10px',
-  borderRadius: '5px',
-  transition: 'background 0.3s',
 };
 
 export default Navbar;
