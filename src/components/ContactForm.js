@@ -1,143 +1,139 @@
-import React, { useState } from 'react';
-import { submitContactForm } from '../services/api';
+import React, { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 
-function ContactForm() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState('');
+const ContactForm = () => {
+  const form = useRef();
   const [rocketAnimated, setRocketAnimated] = useState(false);
+  const [status, setStatus] = useState('');
 
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const handleSubmit = async (e) => {
+  const sendEmail = (e) => {
     e.preventDefault();
     setRocketAnimated(true);
-    try {
-      await submitContactForm(formData);
-      setStatus('Form submitted successfully!');
-      setFormData({ name: '', email: '', message: '' }); 
-    } catch (error) {
-      setStatus('Failed to submit the form. Please try again.');
-      console.error('Submission error:', error);
-    } finally {
-      setRocketAnimated(false); 
-    }
+    
+    const formData = new FormData(form.current);
+    const fromName = formData.get('from_name');
+    const fromEmail = formData.get('from_email');
+    formData.set('from_name', `${fromName} <${fromEmail}>`);
+
+    emailjs
+      .sendForm(
+        'service_8khrh7q',
+        'template_0tip5gy',
+        form.current,
+        'ftj7l61wGTTjuB3vJ'
+      )
+      .then(
+        () => {
+          setStatus('Message sent successfully!');
+          form.current.reset();
+        },
+        (error) => {
+          setStatus('Failed to send message. Please try again.');
+          console.error('Submission error:', error.text);
+        }
+      )
+      .finally(() => {
+        setRocketAnimated(false);
+      });
   };
 
   return (
     <section
       id="contact"
+      className="relative p-12"
       style={{
-        backgroundImage: "url('/images/key-1.jpg')",
-        padding: '50px',
+        backgroundImage: "url('/images/key.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        padding: '10px',
+        color: 'white',
+        position: 'relative',
         maxWidth: '2800px',
         textAlign: 'center',
-        color: 'white',
-        backgroundColor: 'rgba(0, 0, 0, 0.15)',
         borderRadius: '0',
+        margin: 'auto',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
       }}
     >
-      <h2
-        style={{
-          fontSize: '3rem',
-          fontWeight: 'bold',
-          marginBottom: '40px',
-          color: '#ff6f61',
-          textShadow: '2px 2px 5px rgba(0, 0, 0, 0.8), 3px 3px 10px rgba(255, 255, 255, 0.4)',
-          fontFamily: "'Raleway', sans-serif",
-        }}
-      >
+      <h2 className="text-5xl font-bold mb-10 text-center" style={{
+        color: '#ff6f61',
+        textShadow: '2px 2px 5px rgba(0, 0, 0, 0.8), 3px 3px 10px rgba(255, 255, 255, 0.4)',
+        fontFamily: "'Raleway', sans-serif",
+      }}>
         Contact Me
       </h2>
 
       <form
-        onSubmit={handleSubmit}
+  ref={form}
+  onSubmit={sendEmail}
+  className="flex flex-col gap-4 max-w-md mx-auto p-8"
+  style={{
+    background: 'none',
+    boxShadow: 'none',
+    border: 'none',
+  }}
+>
+  <input
+    type="text"
+    name="from_name"
+    placeholder="Your Name"
+    required
+    className="p-3 rounded-lg border border-gray-300 text-black bg-white bg-opacity-80"
+  />
+  <input
+    type="email"
+    name="to_name"
+    placeholder="Your Email"
+    required
+    className="p-3 rounded-lg border border-gray-300 text-black bg-white bg-opacity-80"
+  />
+  <textarea
+    name="message"
+    placeholder="Your Message"
+    required
+    rows="4"
+    className="p-3 rounded-lg border border-gray-300 text-black bg-white bg-opacity-80 resize-none"
+  />
+  <button
+    type="submit"
+    disabled={rocketAnimated}
+    className="relative bg-[#ff6f61] text-white py-3 px-6 rounded-full hover:bg-[#e5625b] transition-colors overflow-hidden disabled:cursor-not-allowed"
+  >
+    Submit
+    {rocketAnimated && (
+      <span
+        className="absolute top-1/2 right-8 text-2xl"
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px',
-          maxWidth: '400px',
-          margin: '0 auto',
+          animation: 'rocketLeftToRightFast 1.3s ease-in-out forwards',
         }}
       >
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          value={formData.name}
-          onChange={handleChange}
-          style={{ padding: '10px', color: 'black', borderRadius: '5px', border: 'none' }}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Your Email"
-          value={formData.email}
-          onChange={handleChange}
-          style={{ padding: '10px', color: 'black', borderRadius: '5px', border: 'none' }}
-        />
-        <textarea
-          name="message"
-          placeholder="Your Message"
-          value={formData.message}
-          onChange={handleChange}
-          style={{
-            padding: '10px',
-            color: 'black',
-            borderRadius: '5px',
-            border: 'none',
-            resize: 'none',
-          }}
-        ></textarea>
-        <button
-          type="submit"
-          disabled={rocketAnimated} 
-          style={{
-            backgroundColor: '#ff6f61',
-            color: 'white',
-            padding: '10px',
-            borderRadius: '15px',
-            border: 'none',
-            cursor: rocketAnimated ? 'not-allowed' : 'pointer',
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
-          Submit
-          {rocketAnimated && (
-            <span
-            style={{
-              position: 'absolute',
-              top: '50%',
-              right: '30',
-              animation: 'rocketLeftToRightFast 13s ease-in-out forwards', 
-              fontSize: '1.5rem',
-            }}
-          >
-            🛫
-          </span>
-          
-          )}
-        </button>
-        {status && <p style={{ marginTop: '10px' }}>{status}</p>}
-      </form>
+        🛫
+      </span>
+    )}
+  </button>
+  {status && (
+    <p className="text-center mt-4 font-medium" style={{
+      color: status.includes('success') ? '#4CAF50' : '#f44336'
+    }}>
+      {status}
+    </p>
+  )}
+</form>
 
-      <style>
-        {`
-          @keyframes rocketLeftToRightFast {
-            0% {
-              transform: translateY(-50%) translateX(0);
-              opacity: 1;
-            }
-            100% {
-              transform: translateY(-50%) translateX(120%);
-              opacity: 0;
-            }
+      <style jsx>{`
+        @keyframes rocketLeftToRightFast {
+          0% {
+            transform: translateY(-50%) translateX(0);
+            opacity: 1;
           }
-        `}
-      </style>
-
+          100% {
+            transform: translateY(-50%) translateX(120%);
+            opacity: 0;
+          }
+        }
+      `}</style>
     </section>
   );
-}
+};
 
 export default ContactForm;
