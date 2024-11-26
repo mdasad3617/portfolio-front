@@ -4,9 +4,9 @@ import React from 'react';
 const Footer = () => {
   return (
     <footer style={footerStyle}>
-      <div style={containerStyle}>
-        &copy; 2024 <strong>Mohd Asad</strong> | Made with{' '}
-        <span style={heartStyle}>❤️</span> | Best viewed on Desktop sire
+     <div style={containerStyle}>
+        &copy; 2024 <strong>Mohd Asad</strong> | Made with ChatGPT{' '}
+        <span style={heartStyle}>💡</span> | Best viewed on Desktop sire
       </div>
     </footer>
   );
