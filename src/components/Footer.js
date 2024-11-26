@@ -6,7 +6,7 @@ const Footer = () => {
     <footer style={footerStyle}>
      <div style={containerStyle}>
         &copy; 2024 <strong>Mohd Asad</strong> | Made with ChatGPT{' '}
-        <span style={heartStyle}>💡</span> | Best viewed on Desktop sire
+        <span style={heartStyle}>💡</span> | Best viewed on Desktop site
       </div>
     </footer>
   );
