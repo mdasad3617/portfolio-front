@@ -6,6 +6,7 @@ import Projects from './components/Projects';
 import ContactForm from './components/ContactForm';
 import Experience from './components/Experience';
 import Skills from './components/Skills';
+import Footer from './components/Footer';
 import Confetti from 'react-confetti'; 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
       <Projects />
       <Skills />
       <ContactForm />
+      <Footer />
     </div>
   );
 }
