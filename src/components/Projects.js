@@ -2,9 +2,10 @@ import React from 'react';
 
 function Projects() {
   const projectList = [
-    { name: 'Curax', description: 'A microservice-based healthcare system', link: 'https://github.com/mdasad8080' },
-    { name: 'DMW', description: 'Manufacturing and regulatory application', link: 'https://github.com/mdasad8080' },
-    { name: 'TeamLancer', description: 'Team-based freelancing platform application', link: 'https://github.com/mdasad8080' },
+    { name: 'Curax', description: 'A microservice-based healthcare system', link: 'https://curax-api.sofyrus.com/swagger/' },
+    { name: 'DMW', description: 'Manufacturing and regulatory application', link: 'http://142.171.135.197:3000/swagger/' },
+    { name: 'Murshid', description: 'training platform application', link: 'http://142.171.135.197:7777/swagger/' },
+    { name: 'GenAI Lab Report Analyzer', description: 'generete result of lab Report  platform application', link: 'https://lab-report-checker.streamlit.app/' },
   ];
 
   return (
