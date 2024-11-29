@@ -8,7 +8,7 @@ function Header() {
         backgroundImage: "url('/images/honeycomb-3.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        height: "50vh",
+        height: "50vh", // Default height for large screens
         color: "#ff6f61",
         display: "flex",
         justifyContent: "center",
@@ -21,7 +21,7 @@ function Header() {
       {/* Header Text */}
       <h1
         style={{
-          fontSize: "4rem",
+          fontSize: "4rem", // Default font size for large screens
           margin: "0",
           zIndex: 2,
           position: "relative",
@@ -55,12 +55,10 @@ function Header() {
           {Array.from({ length: 15 }).map((_, index) => (
             <path
               key={index}
-              d={`
-                M ${-50 + Math.random() * 100} ${-50 + Math.random() * 600}
+              d={`M ${-50 + Math.random() * 100} ${-50 + Math.random() * 600}
                 C ${300 + Math.sin(index) * 200} ${100 + index * 30},
                   ${700 - Math.cos(index) * 200} ${300 - index * 20},
-                  ${1050 - Math.random() * 100} ${-50 + Math.random() * 600}
-              `}
+                  ${1050 - Math.random() * 100} ${-50 + Math.random() * 600}`}
               fill="none"
               stroke={`url(#gradient${index})`}
               strokeWidth={1.5}
@@ -94,7 +92,7 @@ function Header() {
           width: "100%",
           height: "100%",
           overflow: "hidden",
-          zIndex: 1, 
+          zIndex: 1,
         }}
       >
         {Array.from({ length: 5 }).map((_, index) => (
@@ -136,7 +134,7 @@ function Header() {
               }
             }
           `).join('')}
-
+          
           @keyframes textGlow {
             0% { 
               text-shadow: 2px 2px 4px rgba(0, 0, 0, 1.0), 
@@ -164,6 +162,16 @@ function Header() {
               }
             }
           `).join('')}
+
+          /* Mobile Responsive Styles */
+          @media (max-width: 768px) {
+            header {
+              height: 30vh; /* Adjust header height for mobile */
+            }
+            h1 {
+              font-size: 2rem; /* Smaller font size for mobile */
+            }
+          }
         `}
       </style>
     </header>
