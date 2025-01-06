@@ -64,7 +64,7 @@ function About() {
             Hi! I'm Mohd Asad, a Software Developer with expertise in JavaScript, TypeScript, Nest.js and REST APIs.
           </p>
           <p>
-            I have 1.6 years of experience in backend development.
+            I have nearly 2 years of experience in backend development.
           </p>
           <p>
             I love creating efficient and scalable applications that solve real-world problems.
