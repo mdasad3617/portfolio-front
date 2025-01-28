@@ -5,7 +5,7 @@ function Experience() {
     {
       company: "Sofyrus Technologies Pvt Ltd",
       role: "Software Developer",
-      period: "Aug 2023 – Present",
+      period: "feb 2023 – Present",
       highlights: [
         "✧ Led the backend development for a Microservice & Monolithic-Oriented Medical Management System",
         "✧ Achieving a 10x improvement in API response time.",
