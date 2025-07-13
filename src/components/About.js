@@ -96,7 +96,7 @@ function About() {
           }}
           onClick={() =>
             window.open(
-              'https://drive.google.com/file/d/1D7lNNY8oWdEaw1DXOALg0Z34c7R3ln1t/view?usp=sharing',
+              'https://drive.google.com/file/d/1ElOH8XARZ2Or7fvnQYEcIcJ4j6S4Mz2V/view?usp=sharing',
               '_blank'
             )
           }
